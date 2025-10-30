@@ -1,0 +1,6 @@
+Config(
+    addr:     "127.0.0.1",
+    port:     8081,
+    language: "en", // zh_CN, zh_TW, en, ja, pt, ru
+    outpath:  "./mindmap",
+)
