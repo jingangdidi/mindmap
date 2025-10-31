@@ -27,6 +27,7 @@
 
 ## 🕹 页面右上角功能说明
 <img src="https://github.com/jingangdidi/mindmap/raw/master/assets/top-right.png">
+
 - 下拉选取之前的思维导图，在思维导图之间快速切换
 - 给当前思维导图一个简短描述（可选）
 - <img src="https://github.com/jingangdidi/mindmap/raw/master/assets/plus-add-create-new-cross-svgrepo-com.svg" width="18" height="18" align="center"> 创建新思维导图
