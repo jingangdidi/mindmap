@@ -71,4 +71,6 @@ Config(
 [mind-elixir](https://github.com/SSShooter/mind-elixir-core)
 
 ## ⏰ changelog
-- [2025.10.31] release v0.1.0
+- [2025.11.06] release [v0.1.1](https://github.com/jingangdidi/mindmap/releases/tag/v0.1.1)
+  - 🛠Fix: Escape `-->` as `--\\>`
+- [2025.10.31] release [v0.1.0](https://github.com/jingangdidi/mindmap/releases/tag/v0.1.0)
