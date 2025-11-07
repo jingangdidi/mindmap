@@ -73,6 +73,8 @@ Config(
 [mind-elixir](https://github.com/SSShooter/mind-elixir-core)
 
 ## ⏰ 更新记录
+- [2025.11.08] release [v0.1.2](https://github.com/jingangdidi/mindmap/releases/tag/v0.1.2)
+  - 🛠修复：将`'`转义为`\'`
 - [2025.11.06] release [v0.1.1](https://github.com/jingangdidi/mindmap/releases/tag/v0.1.1)
   - 🛠修复：将`-->`转义为`--\\>`
 - [2025.10.31] release v0.1.0

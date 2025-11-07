@@ -45,7 +45,7 @@ pub async fn previous(Query(params): Query<HashMap<String, String>>, uri: Origin
                 .replace("mindmap.png", &format!("{}.png", &uuid))
                 .replace("const style = ``;", &format!("const style = `{}`;", INDEX))
                 .replace("const katex = ``;", &format!("const katex = `{}`;", KATEX))
-                .replace(" = MindElixir.new('root')", &format!(" = JSON.parse('{}')", &content.replace("-->", "--\\>")));
+                .replace(" = MindElixir.new('root')", &format!(" = JSON.parse('{}')", &content.replace("-->", "--\\>").replace("'", "\\'")));
             if PARAS.language != "en" {
                 html = html.replace("locale: 'en'", &format!("locale: '{}'", PARAS.language));
             }
