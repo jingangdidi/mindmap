@@ -177,7 +177,7 @@ impl MindMap {
                 .replace("mindmap.png", &format!("{}.png", uuid))
                 .replace("const style = ``;", &format!("const style = `{}`;", INDEX))
                 .replace("const katex = ``;", &format!("const katex = `{}`;", KATEX))
-                .replace(" = MindElixir.new('root')", &format!(" = JSON.parse('{}')", &value.0.replace("-->", "--\\>").replace("'", "\\'")));
+                .replace(" = MindElixir.new('root')", &format!(" = JSON.parse('{}')", &value.0.replace("\\", "\\\\").replace("-->", "--\\>").replace("'", "\\'")));
             if PARAS.language != "en" {
                 html = html.replace("locale: 'en'", &format!("locale: '{}'", PARAS.language));
             }
@@ -210,7 +210,7 @@ impl MindMap {
                     .replace("mindmap.png", &format!("{}.png", k))
                     .replace("const style = ``;", &format!("const style = `{}`;", INDEX))
                     .replace("const katex = ``;", &format!("const katex = `{}`;", KATEX))
-                    .replace(" = MindElixir.new('root')", &format!(" = JSON.parse('{}')", &v.0.replace("-->", "--\\>").replace("'", "\\'")));
+                    .replace(" = MindElixir.new('root')", &format!(" = JSON.parse('{}')", &v.0.replace("\\", "\\\\").replace("-->", "--\\>").replace("'", "\\'")));
                 if PARAS.language != "en" {
                     html = html.replace("locale: 'en'", &format!("locale: '{}'", PARAS.language));
                 }
