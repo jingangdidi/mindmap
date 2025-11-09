@@ -1,5 +1,5 @@
 use std::collections::HashMap;
-use std::fs::{write, read_to_string, create_dir_all};
+use std::fs::{write, read_to_string, create_dir_all, remove_file};
 use std::path::PathBuf;
 use std::sync::RwLock;
 
@@ -159,6 +159,16 @@ impl MindMap {
     pub fn update_loaded_mindmap(&mut self, uuid: String, content: String, label: Option<String>) {
         match self.loaded.get_mut(&uuid) {
             Some(data) => {
+                if label.is_none() {
+                    let save_path = PARAS.outpath.join(&uuid);
+                    let file_name = format!("{}.txt", uuid);
+                    let label_path = save_path.join(file_name);
+                    if label_path.exists() && label_path.is_file() {
+                        if let Err(e) = remove_file(&label_path) {
+                            event!(Level::ERROR, "delete {} error: {}", label_path.display(), e);
+                        }
+                    }
+                }
                 event!(Level::INFO, "{} update mindmap in server", &uuid);
                 *data = (content, label, true);
             },
@@ -182,7 +192,7 @@ impl MindMap {
                 html = html.replace("locale: 'en'", &format!("locale: '{}'", PARAS.language));
             }
             if let Some(l) = &value.1 {
-                html = html.replace("placeholder='mindmap label'>", &format!("placeholder='{}'>", l));
+                html = html.replace("    let mind;", &format!("    let mind;\n    document.getElementById('input-label').value = '{}';", l));
             }
             Some(html)
         } else {
@@ -215,7 +225,7 @@ impl MindMap {
                     html = html.replace("locale: 'en'", &format!("locale: '{}'", PARAS.language));
                 }
                 if let Some(l) = &v.1 {
-                    html = html.replace("placeholder='mindmap label'>", &format!("placeholder='{}'>", l));
+                    html = html.replace("    let mind;", &format!("    let mind;\n    document.getElementById('input-label').value = '{}';", l));
                 }
                 if let Err(e) = write(&file_path, html) {
                     event!(Level::ERROR, "{}: save mindmap html {} error: {}", k, file_path.display(), e);

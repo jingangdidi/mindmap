@@ -73,8 +73,10 @@ Config(
 [mind-elixir](https://github.com/SSShooter/mind-elixir-core)
 
 ## ⏰ 更新记录
-- [2025.11.08] release [v0.1.2](https://github.com/jingangdidi/mindmap/releases/tag/v0.1.2)
+- [2025.11.09] release [v0.1.2](https://github.com/jingangdidi/mindmap/releases/tag/v0.1.2)
   - 🛠修复：将`'`转义为`\'`，`\`转义为`\\`
+  - 🛠修复：填写的label在下次点击记录按钮时被移除
+  - 🛠修复：如果上次本地保存了label的txt文件，本次在页面去掉了label，则需要把本地的label文件删掉
   - 💪🏻优化: 隐藏滚动条：`overflow: hidden;`
 - [2025.11.06] release [v0.1.1](https://github.com/jingangdidi/mindmap/releases/tag/v0.1.1)
   - 🛠修复：将`-->`转义为`--\\>`

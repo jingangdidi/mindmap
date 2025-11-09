@@ -50,7 +50,7 @@ pub async fn previous(Query(params): Query<HashMap<String, String>>, uri: Origin
                 html = html.replace("locale: 'en'", &format!("locale: '{}'", PARAS.language));
             }
             if let Some(l) = label {
-                html = html.replace("placeholder='mindmap label'>", &format!("placeholder='{}'>", l));
+                html = html.replace("    let mind;", &format!("    let mind;\n    document.getElementById('input-label').value = '{}';", l));
             }
             html.into()
         },
