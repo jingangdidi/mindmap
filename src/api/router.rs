@@ -5,6 +5,7 @@ use crate::api::handlers::{
     index::index,
     update::update,
     previous::previous,
+    highlight::highlight,
     download::download,
     fallback::fallback,
 };
@@ -18,6 +19,7 @@ pub fn configure() -> Router {
         .route("/", get(index)) // GET `/`
         .route("/update", post(update)) // POST `/update`
         .route("/previous", get(previous)) // GET `/previous`
+        .route("/highlight", get(highlight)) // GET `/highlight`
         .route("/download/:uuid", get(download)) // GET `/download/:uuid`
         .fallback(fallback) // not match any router
 }

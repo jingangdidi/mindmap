@@ -18,13 +18,14 @@ pub async fn index(uri: OriginalUri) -> Html<String> {
     let uuid = Uuid::new_v4().to_string();
     event!(Level::INFO, "GET `{}`, create uuid: {}", uri.path(), &uuid);
     let data = DATA.read().unwrap();
-    let pulldown = data.html_pulldown(&uuid);
+    let pulldown = data.pulldown_uuid(&uuid);
     DEFAULT_PAGE
         .replace("127.0.0.1:8081", &format!("{}:{}", &PARAS.addr_str, PARAS.port))
         .replace("download/mindmap", &format!("download/{}", &uuid))
         .replace("locale: 'en'", &format!("locale: '{}'", PARAS.language))
         .replace("<option value='mindmap' selected>mindmap</option>", &format!("{}\n", pulldown))
         .replace("mindmap.png", &format!("{}.png", &uuid))
+        .replace("highlight?uuid=&", &format!("highlight?uuid={}&", &uuid))
         .replace("const style = ``;", &format!("const style = `{}`;", INDEX))
         .replace("const katex = ``;", &format!("const katex = `{}`;", KATEX))
         .into()

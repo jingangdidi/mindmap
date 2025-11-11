@@ -52,6 +52,51 @@
         margin-right: 10px;
         font-size: 2vmin;
       }
+      .edit-para {
+        display: block;
+        height: 3vmin;
+        width: 100%;
+        outline: none;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        padding-left: 15px;
+        font-size: 2vmin;
+      }
+      .switch-toggle input[type="checkbox"] {
+        opacity: 0;
+        height: 0;
+        margin: 0;
+      }
+      .switch-toggle input[type="checkbox"] + label {
+        position: relative;
+        display: block;
+        height: 3vmin;
+        border-radius: 8px;
+        cursor: pointer;
+        box-shadow: inset 4px 4px 4px #cbced1, inset -4px -4px 4px white;
+      }
+      .switch-toggle input[type="checkbox"] + label::before {
+        position: absolute;
+        content: 'Read-only';
+        font-size: 13px;
+        text-align: center;
+        top: 0.25vmin;
+        left: 2%;
+        width: 40%;
+        height: 2vmin;
+        line-height: 2vmin; /* 设为与height相同，实现文本内容居中 */
+        border-radius: 8px;
+        background-color: #d1dad3;
+        box-shadow: -3px -3px 5px rgba(255,255,255,.5), 3px 3px 5px rgba(0,0,0,.25);
+        transition: 0.3s ease-in-out;
+      }
+      .switch-toggle input[type="checkbox"]:checked + label::before {
+        left: 58%;
+        content: 'Editable';
+        color: #fff;
+        background-color: #719ece;
+        box-shadow: -3px -3px 5px rgba(255,255,255,.5), 3px 3px 5px #719ece;
+      }
     </style>
     <!--<script type="module">
       import MindElixir from "https://cdn.jsdelivr.net/npm/mind-elixir@^5.3.4/dist/MindElixir.js";
@@ -78,6 +123,15 @@
       </div>
       <div>
         <input id='input-label' class='para' title='write a brief description for the current mindmap' type='text' placeholder='mindmap label'>
+      </div>
+      <div>
+        <select id='select-node' class='para' title='highlight the selected node, you can only choose one at a time, up to a maximum of 9 can be selected. Common parent nodes color will be set to gray' autocomplete="off">
+          <option value='0' selected>highlight node</option>
+        </select>
+      </div>
+      <div class='switch-toggle para' title='enable or disable editable features'>
+        <input id='editable' class='edit-para' type='checkbox' checked name='edit'>
+        <label for='editable'></label>
       </div>
       <div id='new' class='image' title='create new mindmap'>
         <!--<img src='../../assets/plus-add-create-new-cross-svgrepo-com.svg' aria-hidden='true' />-->
@@ -2823,6 +2877,24 @@ MindElixir.new = (e) => ({
       window.location.href = base_url;
     })
 
+    // editable
+    document.getElementById('editable').addEventListener('change', function() {
+      if (this.checked) {
+        mind.editable = true;
+      } else {
+        mind.editable = false;
+      }
+    })
+
+    // select highlight node
+    document.getElementById('select-node').addEventListener('change', function() {
+      const selectNode = this.value;
+      if (selectNode !== '0') {
+        window.location.href = base_url+'/highlight?uuid=&node='+selectNode;
+        this.value = '0';
+      }
+    })
+
     // save as png
     const style = ``;
     const katex = ``;
@@ -2857,6 +2929,7 @@ MindElixir.new = (e) => ({
       nodeMenu: true, // default true
       keypress: true, // default true
       allowUndo: true,
+      editable: true,
       locale: 'en', // zh_CN,zh_TW,en,ja,pt,ru
     })
     const data = MindElixir.new('root')

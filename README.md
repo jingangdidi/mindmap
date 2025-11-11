@@ -3,13 +3,14 @@
 
 [中文文档](https://github.com/jingangdidi/mindmap/blob/master/README_zh.md)
 
-**A lightweight mindmap command-line tool (~1.7Mb)**
+**A lightweight mindmap command-line tool (~2Mb)**
 
 ## 👑 Features
-- 💪​ Single-file executable (~1.7Mb) - no installation required
+- 💪​ Single-file executable (~2Mb) - no installation required
 - 🎨​ Based on [mind-elixir](https://github.com/SSShooter/mind-elixir-core)
 - 1️⃣​ Support save as single HTML file
 - 🌄 Support save as PNG image
+- ✨ Support node highlighting
 
 ## 🚀 Usage
 **1. download a pre-built binary**
@@ -28,6 +29,8 @@ visit via your browser [http:127.0.0.1:8081](http:127.0.0.1:8081)
 
 - Pull down to select the previous mindmap and quickly switch between mindmaps
 - Provide a brief description of the current mindmap (optional)
+- Drop down to select node for highlighting
+- Switch between read-only or editable
 - <img src="https://github.com/jingangdidi/mindmap/raw/master/assets/plus-add-create-new-cross-svgrepo-com.svg" width="18" height="18" align="center"> Create a new mindmap
 - <img src="https://github.com/jingangdidi/mindmap/raw/master/assets/download-square-svgrepo-com.svg" width="18" height="18" align="center"> Save the current mindmap as a single HTML file
 - <img src="https://github.com/jingangdidi/mindmap/raw/master/assets/image-svgrepo-com.svg" width="18" height="18" align="center"> Save the current mindmap as a PNG image
@@ -71,6 +74,9 @@ Config(
 [mind-elixir](https://github.com/SSShooter/mind-elixir-core)
 
 ## ⏰ changelog
+- [2025.11.11] release [v0.1.3](https://github.com/jingangdidi/mindmap/releases/tag/v0.1.3)
+  - ⭐️Add: Switch button between read-only and editable
+  - ⭐️Add: Select a node from the drop-down menu and highlight the background color of the node and its parent nodes. Up to 9 nodes can be highlighted, and the common parent nodes will be set to gray.
 - [2025.11.09] release [v0.1.2](https://github.com/jingangdidi/mindmap/releases/tag/v0.1.2)
   - 🛠Fix: Escape `'` as `\'`, `\` as `\\`
   - 🛠Fix: The label is removed when the record button is clicked next time.
