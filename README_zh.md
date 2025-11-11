@@ -7,6 +7,8 @@
 
 **轻量级命令行思维导图工具，无需安装，仅一个可执行文件（~2Mb）**
 
+<img src="https://github.com/jingangdidi/mindmap/raw/master/assets/example.png">
+
 ## 👑 特点
 - 💪​ 单个可执行文件（~1.7Mb），无需安装
 - 🎨​ 基于[mind-elixir](https://github.com/SSShooter/mind-elixir-core)
@@ -76,9 +78,9 @@ Config(
 [mind-elixir](https://github.com/SSShooter/mind-elixir-core)
 
 ## ⏰ 更新记录
-- [2025.11.11] release [v0.1.3](https://github.com/jingangdidi/mindmap/releases/tag/v0.1.3)
+- [2025.11.12] release [v0.1.3](https://github.com/jingangdidi/mindmap/releases/tag/v0.1.3)
   - ⭐️增加：只读与编辑的切换按钮
-  - ⭐️增加：下拉选择一个节点，对该节点及其父节点背景色进行高亮，最多支持高亮9个节点，共同父节点将设为灰色
+  - ⭐️增加：下拉选择一个节点，对该节点及其父节点背景色进行高亮，共同父节点将设为灰色
 - [2025.11.09] release [v0.1.2](https://github.com/jingangdidi/mindmap/releases/tag/v0.1.2)
   - 🛠修复：将`'`转义为`\'`，`\`转义为`\\`
   - 🛠修复：填写的label在下次点击记录按钮时被移除

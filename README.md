@@ -5,6 +5,8 @@
 
 **A lightweight mindmap command-line tool (~2Mb)**
 
+<img src="https://github.com/jingangdidi/mindmap/raw/master/assets/example.png">
+
 ## 👑 Features
 - 💪​ Single-file executable (~2Mb) - no installation required
 - 🎨​ Based on [mind-elixir](https://github.com/SSShooter/mind-elixir-core)
@@ -74,9 +76,9 @@ Config(
 [mind-elixir](https://github.com/SSShooter/mind-elixir-core)
 
 ## ⏰ changelog
-- [2025.11.11] release [v0.1.3](https://github.com/jingangdidi/mindmap/releases/tag/v0.1.3)
+- [2025.11.12] release [v0.1.3](https://github.com/jingangdidi/mindmap/releases/tag/v0.1.3)
   - ⭐️Add: Switch button between read-only and editable
-  - ⭐️Add: Select a node from the drop-down menu and highlight the background color of the node and its parent nodes. Up to 9 nodes can be highlighted, and the common parent nodes will be set to gray.
+  - ⭐️Add: Select a node from the drop-down menu and highlight the background color of the node and its parent nodes, the common parent nodes will be set to gray.
 - [2025.11.09] release [v0.1.2](https://github.com/jingangdidi/mindmap/releases/tag/v0.1.2)
   - 🛠Fix: Escape `'` as `\'`, `\` as `\\`
   - 🛠Fix: The label is removed when the record button is clicked next time.

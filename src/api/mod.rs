@@ -4,6 +4,7 @@ use std::path::PathBuf;
 use std::sync::RwLock;
 
 use once_cell::sync::Lazy;
+use serde::{Deserialize, Serialize};
 use tracing::{event, Level};
 
 pub mod parse_paras;
@@ -34,11 +35,28 @@ const HIGHLIGHT_GRAY: &str = "LightGray";
 /// global data, store all mindmap
 pub static DATA: Lazy<RwLock<MindMap>> = Lazy::new(|| RwLock::new(MindMap::new()));
 
+/// highlight node
+#[derive(Deserialize, Serialize)]
+struct HighlightNode {
+    all_nodes:      HashMap<String, usize>, // key: all highlighted node id, value: color index
+    selected_nodes: HashMap<String, usize>, // key: selected node id, value: color index
+}
+
+impl HighlightNode {
+    /// create empty struct
+    fn new() -> Self {
+        Self {
+            all_nodes:      HashMap::new(),
+            selected_nodes: HashMap::new(),
+        }
+    }
+}
+
 /// store local mindmap
 pub struct MindMap {
     loaded:    HashMap<String, (String, Option<String>, bool)>, // loaded mindmap, key: uuid, value: (mindmap data, label string, updated)
     local:     HashMap<String, (PathBuf, Option<String>)>,      // all mindmap in outpath, key : uuid, value: (mindmap data file path, label string), e.g. (f66bedbd-9972-4ec3-9a30-9510d4fffe1c.html, f66bedbd-9972-4ec3-9a30-9510d4fffe1c.json, "my first mindmap")
-    highlight: HashMap<String, HashMap<String, usize>>,         // highlighted nodes, key: uuid, value: {key: node id, value: color index}
+    highlight: HashMap<String, HighlightNode>,                  // highlighted nodes, key: uuid, value: highlighted node
 }
 
 impl MindMap {
@@ -79,11 +97,11 @@ impl MindMap {
                             if highlight_path.exists() && highlight_path.is_file() {
                                 match read_to_string(&highlight_path) {
                                     Ok(highlight_str) => {
-                                        match serde_json::from_str::<HashMap<String, usize>>(&highlight_str) {
+                                        match serde_json::from_str::<HighlightNode>(&highlight_str) {
                                             Ok(data) => {
                                                 highlight.insert(uuid.to_string(), data);
                                             },
-                                            Err(e) => event!(Level::ERROR, "convert {} content to HashMap: {}", highlight_path.display(), e),
+                                            Err(e) => event!(Level::ERROR, "convert {} content to struct: {}", highlight_path.display(), e),
                                         }
                                     },
                                     Err(e) => event!(Level::ERROR, "read {} to string: {}", highlight_path.display(), e),
@@ -161,7 +179,7 @@ impl MindMap {
         for (k, v) in id_topic {
             tmp_topic = truncate_str(&v, 40).replace("<", "&lt;").replace(">", "&gt;");
             if let Some(tmp_hl) = &tmp_highlight {
-                if tmp_hl.contains_key(&k) {
+                if tmp_hl.all_nodes.contains_key(&k) {
                     node_options.push(format!("<option value='{}'>✅ {}</option>", k, tmp_topic));
                 } else {
                     node_options.push(format!("<option value='{}'>{}</option>", k, tmp_topic));
@@ -210,7 +228,7 @@ impl MindMap {
                             if id == "clear" { // clear all selected nodes
                                 if let Some(node_id_topic) = self.highlight.remove(uuid) {
                                     let colors_num = HIGHLIGHT_COLORS.len();
-                                    for (k, v) in node_id_topic {
+                                    for (k, v) in node_id_topic.all_nodes {
                                         if v == colors_num { // gray
                                             content = content.replace(&format!("\"id\":\"{}\",\"style\":{{\"background\":\"{}\"}}", k, HIGHLIGHT_GRAY), &format!("\"id\":\"{}\"", k));
                                         } else {
@@ -230,31 +248,35 @@ impl MindMap {
                             } else {
                                 // next color index
                                 let color_index = match self.highlight.get(uuid) {
-                                    Some(nodes) => nodes.len(),
+                                    Some(nodes) => {
+                                        let color_index = nodes.selected_nodes.len();
+                                        if color_index >= 9 {
+                                            0
+                                        } else {
+                                            color_index
+                                        }
+                                    },
                                     None => {
-                                        self.highlight.insert(uuid.to_string(), HashMap::new());
+                                        self.highlight.insert(uuid.to_string(), HighlightNode::new());
                                         0
                                     },
                                 };
+                                let node_id_color_map = self.highlight.get_mut(uuid).unwrap();
+                                node_id_color_map.selected_nodes.insert(id.clone(), color_index); // insert selected node id
                                 let colors_num = HIGHLIGHT_COLORS.len();
-                                if color_index < colors_num {
-                                    for (i, _, background) in root.get_ancestors(id, &parent_map) {
-                                        let node_id_color_map = self.highlight.get_mut(uuid).unwrap();
-                                        match node_id_color_map.get_mut(&i) {
-                                            Some(idx) => {
-                                                if *idx < colors_num { // not gray, set to gray
-                                                    *idx = colors_num;
-                                                    content = content.replace(&format!("\"id\":\"{}\",\"style\":{{\"background\":\"{}\"}}", i, background.unwrap()), &format!("\"id\":\"{}\",\"style\":{{\"background\":\"{}\"}}", i, HIGHLIGHT_GRAY));
-                                                }
-                                            },
-                                            None => {
-                                                content = content.replace(&format!("\"id\":\"{}\"", i), &format!("\"id\":\"{}\",\"style\":{{\"background\":\"{}\"}}", i, HIGHLIGHT_COLORS[color_index]));
-                                                node_id_color_map.insert(i, color_index);
-                                            },
-                                        }
+                                for (i, _, background) in root.get_ancestors(id, &parent_map) {
+                                    match node_id_color_map.all_nodes.get_mut(&i) {
+                                        Some(idx) => {
+                                            if *idx < colors_num { // not gray, set to gray
+                                                *idx = colors_num;
+                                                content = content.replace(&format!("\"id\":\"{}\",\"style\":{{\"background\":\"{}\"}}", i, background.unwrap()), &format!("\"id\":\"{}\",\"style\":{{\"background\":\"{}\"}}", i, HIGHLIGHT_GRAY));
+                                            }
+                                        },
+                                        None => {
+                                            content = content.replace(&format!("\"id\":\"{}\"", i), &format!("\"id\":\"{}\",\"style\":{{\"background\":\"{}\"}}", i, HIGHLIGHT_COLORS[color_index]));
+                                            node_id_color_map.all_nodes.insert(i, color_index); // insert selected and it's parent node id
+                                        },
                                     }
-                                } else {
-                                    event!(Level::WARN, "Highlight up to {} nodes, you need clear previous highlight first", colors_num);
                                 }
                             }
                         }
