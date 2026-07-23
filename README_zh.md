@@ -39,6 +39,7 @@
 - <img src="https://github.com/jingangdidi/mindmap/raw/master/assets/download-square-svgrepo-com.svg" width="18" height="18" align="center"> 将当前思维导图保存为单个html文件
 - <img src="https://github.com/jingangdidi/mindmap/raw/master/assets/image-svgrepo-com.svg" width="18" height="18" align="center"> 将当前思维导图保存为png图片
 - <img src="https://github.com/jingangdidi/mindmap/raw/master/assets/cloud-upload-svgrepo-com.svg" width="18" height="18" align="center"> 记录当前思维导图的状态，这个很重要，如果编辑完的思维导图没有被记录，关闭页面后将丢失
+- <img src="https://github.com/jingangdidi/mindmap/raw/master/assets/file-text-svgrepo-com.svg" width="18" height="18" align="center"> 将当前思维导图保存至本地文件
 
 ## 🛠 从源码编译
 ```
