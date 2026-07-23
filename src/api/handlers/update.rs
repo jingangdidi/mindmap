@@ -31,5 +31,11 @@ pub async fn update(Query(params): Query<HashMap<String, String>>, uri: Original
     };
     // update loaded by body
     let mut data = DATA.write().unwrap();
-    data.update_loaded_mindmap(uuid, body, label);
+    data.update_loaded_mindmap(uuid.clone(), body, label);
+    // get save
+    if let Some(save) = params.get("save") {
+        if save == "true" {
+            data.save_mindmap(Some(uuid));
+        }
+    }
 }
