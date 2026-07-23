@@ -3,15 +3,18 @@
 
 [English readme](https://github.com/jingangdidi/mindmap/blob/master/README.md)
 
-**A lightweight mindmap command-line tool (~1.7Mb)**
+**A lightweight mindmap command-line tool (~2Mb)**
 
-**轻量级命令行思维导图工具，无需安装，仅一个可执行文件（~1.7Mb）**
+**轻量级命令行思维导图工具，无需安装，仅一个可执行文件（~2Mb）**
+
+<img src="https://github.com/jingangdidi/mindmap/raw/master/assets/example.png">
 
 ## 👑 特点
 - 💪​ 单个可执行文件（~1.7Mb），无需安装
 - 🎨​ 基于[mind-elixir](https://github.com/SSShooter/mind-elixir-core)
 - 1️⃣​ 支持保存为单个HTML文件
 - 🌄 支持保存为PNG图片
+- ✨ 支持节点高亮
 
 ## 🚀 使用说明
 **1. 下载预编译的可执行文件**
@@ -30,6 +33,8 @@
 
 - 下拉选取之前的思维导图，在思维导图之间快速切换
 - 给当前思维导图一个简短描述（可选）
+- 下拉选择节点进行高亮
+- 切换只读或编辑
 - <img src="https://github.com/jingangdidi/mindmap/raw/master/assets/plus-add-create-new-cross-svgrepo-com.svg" width="18" height="18" align="center"> 创建新思维导图
 - <img src="https://github.com/jingangdidi/mindmap/raw/master/assets/download-square-svgrepo-com.svg" width="18" height="18" align="center"> 将当前思维导图保存为单个html文件
 - <img src="https://github.com/jingangdidi/mindmap/raw/master/assets/image-svgrepo-com.svg" width="18" height="18" align="center"> 将当前思维导图保存为png图片
@@ -73,8 +78,11 @@ Config(
 [mind-elixir](https://github.com/SSShooter/mind-elixir-core)
 
 ## ⏰ 更新记录
-- [2026.07.23] release [v0.1.3](https://github.com/jingangdidi/mindmap/releases/tag/v0.1.3)
+- [2026.07.23] release [v0.1.4](https://github.com/jingangdidi/mindmap/releases/tag/v0.1.4)
   - ⭐️增加：右上角增加保存当前思维导图至本地按钮
+- [2025.11.12] release [v0.1.3](https://github.com/jingangdidi/mindmap/releases/tag/v0.1.3)
+  - ⭐️增加：只读与编辑的切换按钮
+  - ⭐️增加：下拉选择一个节点，对该节点及其父节点背景色进行高亮，共同父节点将设为灰色
 - [2025.11.09] release [v0.1.2](https://github.com/jingangdidi/mindmap/releases/tag/v0.1.2)
   - 🛠修复：将`'`转义为`\'`，`\`转义为`\\`
   - 🛠修复：填写的label在下次点击记录按钮时被移除
