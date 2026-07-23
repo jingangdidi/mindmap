@@ -37,6 +37,7 @@ visit via your browser [http:127.0.0.1:8081](http:127.0.0.1:8081)
 - <img src="https://github.com/jingangdidi/mindmap/raw/master/assets/download-square-svgrepo-com.svg" width="18" height="18" align="center"> Save the current mindmap as a single HTML file
 - <img src="https://github.com/jingangdidi/mindmap/raw/master/assets/image-svgrepo-com.svg" width="18" height="18" align="center"> Save the current mindmap as a PNG image
 - <img src="https://github.com/jingangdidi/mindmap/raw/master/assets/cloud-upload-svgrepo-com.svg" width="18" height="18" align="center"> Record the current state of the mindmap. If the edited mindmap is not recorded, it will be lost after closing the page
+- <img src="https://github.com/jingangdidi/mindmap/raw/master/assets/file-text-svgrepo-com.svg" width="18" height="18" align="center"> Save current mind map to local
 
 ## 🛠 Building from source
 ```
