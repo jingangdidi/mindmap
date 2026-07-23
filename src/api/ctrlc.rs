@@ -52,5 +52,5 @@ pub async fn wait_for_signal() {
     wait_for_signal_impl().await;
     //println!("do something ...");
     let data = DATA.read().unwrap();
-    data.save_mindmap();
+    data.save_mindmap(None);
 }
